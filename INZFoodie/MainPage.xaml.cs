@@ -20,7 +20,7 @@ namespace INZFoodie
        async void Button_Clicked(object sender, EventArgs e)
         {
             var httpClient = new HttpClient();
-            var resultJson = await httpClient.GetStringAsync("http://192.168.0.221:5058/WeatherForecast");
+            var resultJson = await httpClient.GetStringAsync("http://192.168.0.221:5016/WeatherForecast");
             var resultForcasts = JsonConvert.DeserializeObject<WeatherForecast[]>(resultJson);
 
             forecasts.ItemsSource = resultForcasts;

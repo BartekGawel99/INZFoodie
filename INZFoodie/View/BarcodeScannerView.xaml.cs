@@ -1,6 +1,10 @@
-﻿using System;
+﻿using INZFoodie.Model;
+using INZFoodie.ViewModel;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,12 +20,33 @@ namespace INZFoodie.View
         {
             InitializeComponent();
         }
-        private void scanView_OnScanResult(ZXing.Result result)
+        private async void scanView_OnScanResult(ZXing.Result result)
         {
-            Device.BeginInvokeOnMainThread(async () =>
+
+            var httpClient = new HttpClient();
+            try
             {
-                await DisplayAlert("Scanned Result", result.Text, "OK");
-            });
+                var resultJson = await httpClient.GetStringAsync($"http://192.168.0.221:5016/api/Product/{result.Text}");
+                Product resultProduct = JsonConvert.DeserializeObject<Product>(resultJson);
+
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await Navigation.PushAsync(new BarcodeScannerViewResult(resultProduct));
+                });
+            }
+     
+          catch (Exception ex)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await Navigation.PushAsync(new BarcodeScannerViewNew(result.Text));
+                });
+            }
+
+            
+
+            
+
         }
 
     }
