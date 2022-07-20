@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="INZFoodie.View.Templates.IngredientsTemplate"
+             xmlns:viewModel="clr-namespace:INZFoodie.ViewModel">    
+    
+  <ContentView.Content>
+      <StackLayout>
+            <Button Text="{Binding Name}" FontSize="10" Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectedCommand}" CommandParameter="{Binding .}"/>
+      </StackLayout>
+  </ContentView.Content>
+</ContentView>

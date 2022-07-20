@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="INZFoodie.View.LoginView"
-             Visual="Material" BackgroundColor="SlateGray">
+             Visual="Material" BackgroundColor="SlateGray"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False">
 
 
     <ContentPage.Content >
@@ -22,11 +24,11 @@
                 <Entry Placeholder="Wpisz Login" Text="{Binding Username}" BackgroundColor="WhiteSmoke" TextColor="Black"/>
                 <Entry Placeholder="Wpisz Hasło" Text="{Binding Password}" IsPassword="True" BackgroundColor="WhiteSmoke" TextColor="Black"/>
 
-                <Button Text="Zaloguj" Clicked="Button_Clicked" HorizontalOptions="Center" BackgroundColor="Orchid" TextColor="WhiteSmoke" WidthRequest="200" HeightRequest="60" CornerRadius="20"/>
+                <Button Text="Zaloguj" Command="{Binding LoginCommand}"  HorizontalOptions="Center" BackgroundColor="Orchid" TextColor="WhiteSmoke" WidthRequest="200" HeightRequest="60" CornerRadius="20"/>
 
                 <Label Text="Nie masz jeszcze konta? " HorizontalOptions="Center" FontSize="15" TextColor="DarkOrchid"/>
 
-                <Button Text="Register" HorizontalOptions="Center" BackgroundColor="MediumOrchid" TextColor="WhiteSmoke" WidthRequest="200" HeightRequest="60" CornerRadius="20" />
+                <Button Text="Register" Command="{Binding RegisterCommand}" HorizontalOptions="Center" BackgroundColor="MediumOrchid" TextColor="WhiteSmoke" WidthRequest="200" HeightRequest="60" CornerRadius="20" />
             </StackLayout>       
         
         </Grid>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using INZFoodie.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,12 +15,8 @@ namespace INZFoodie.View
     {
         public LoginView()
         {
-            InitializeComponent();            
-        }
-
-        async void Button_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new BarcodeScannerView());
+            InitializeComponent();  
+            BindingContext = new LoginViewModel();
         }
     }
 }

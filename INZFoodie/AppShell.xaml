@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:INZFoodie.View" 
+             xmlns:view2="clr-namespace:INZFoodie.View.Personal"
+            xmlns:view3="clr-namespace:INZFoodie.View.Calculator"
+             x:Class="INZFoodie.AppShell"
+             FlyoutBackgroundColor="SlateGray" >
+
+
+
+
+    
+    
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid BackgroundColor="MediumOrchid" Padding="10">
+                <Label Text="InżFOODIE"
+                       TextColor="Beige"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    
+
+
+
+    <FlyoutItem Title="Zdrowy Skaner" Icon="" Route="BarcodeScannerView">
+        <ShellContent Title="BarcodeScanner"  ContentTemplate="{DataTemplate view:BarcodeScannerView}" />
+        </FlyoutItem>
+
+    <FlyoutItem Title="Kalkulatory Dietetyczne" Icon="" Route="CalculatorPage">
+        <ShellContent Title="Calculator"  ContentTemplate="{DataTemplate view3:CalculatorPage}" />
+        </FlyoutItem>
+
+    <FlyoutItem Title="Obliczenia Dla Ciebie" Icon="" Route="PersonalPage">
+        <ShellContent Title="Personal"  ContentTemplate="{DataTemplate view2:PersonalPage}" />
+        </FlyoutItem>
+
+
+    <MenuItem Text="Wyloguj"              
+               Clicked="MenuItem_Clicked"/>
+
+    <ShellItem Route="LoginView" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate view:LoginView}"/>
+    </ShellItem>
+</Shell>

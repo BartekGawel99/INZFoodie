@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="INZFoodie.View.Scanning.BarcodeScannerResult"
+             xmlns:viewModel="clr-namespace:INZFoodie.ViewModel"
+             xmlns:templates="clr-namespace:INZFoodie.View.Templates" 
+             x:DataType="viewModel:ScanningResultViewModel">
+               
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="Coral" BorderColor="DarkBlue" Padding="5" HeightRequest="600" Margin="10,10,20,0" >
+                <Grid Padding="5" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Label  Text="Informacje o produkcie" FontSize="Title" VerticalOptions="Center"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+                    <Label   VerticalOptions="Center" Grid.Column="1"/>
+
+                    <Label  Text="Nazwa Produktu" FontSize="Title" TextColor="White"  Grid.Column="0" Grid.Row="1"/>
+                    <Label  Text="Producent" FontSize="Title" TextColor="White"  Grid.Column="0" Grid.Row="2"/>
+                    <Label  Text="Masa Produktu" FontSize="Title" TextColor="White"  Grid.Column="0" Grid.Row="3"/>
+                    <Label  Text="Kcal w całym produkcie" FontSize="Title" TextColor="White"  Grid.Column="0" Grid.Row="4"/>
+
+                    <Label  Text="{Binding product.ProductName}" FontSize="20" TextColor="White" HorizontalTextAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+                    <Label  Text="{Binding product.Producer}" FontSize="20" TextColor="White" HorizontalTextAlignment="Center" Grid.Column="1" Grid.Row="2"/>
+                    <Label  Text="{Binding product.ProductWeight}" FontSize="20" TextColor="White" HorizontalTextAlignment="Center" Grid.Column="1" Grid.Row="3"/>
+                    <Label  Text="{Binding product.KcalTotal}" FontSize="20" TextColor="White" HorizontalTextAlignment="Center" Grid.Column="1" Grid.Row="4"/>
+                </Grid>
+            </Frame>
+            <Frame BackgroundColor="Coral" BorderColor="DarkBlue" Padding="5" Margin="10,10,20,0" HeightRequest="700">
+                <Grid Padding="5" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Text="Wartość odżywcza" FontSize="20" VerticalOptions="Center" Grid.Column="0"/>
+                    <Label  Text="w 100 g" FontSize="20" VerticalOptions="Center" Grid.Column="1"/>
+
+
+                    <Label  Text="Kcal"   FontSize="20" TextColor="White"  Grid.Column="0" Grid.Row="1"/>
+                    <Label  Text="Węglowodany" FontSize="20" TextColor="White"  Grid.Column="0" Grid.Row="2"/>
+                    <Label  Text="W tym cukry" FontSize="20" TextColor="White"  Grid.Column="0" Grid.Row="3"/>
+                    <Label  Text="Tłuszcz" FontSize="20" TextColor="White"  Grid.Column="0" Grid.Row="4"/>
+                    <Label  Text="Tłuszcze nasycone" FontSize="20" TextColor="White"  Grid.Column="0" Grid.Row="5"/>
+                    <Label  Text="Białko" FontSize="20" TextColor="White"  Grid.Column="0" Grid.Row="6"/>
+                    <Label  Text="Sól" FontSize="20" TextColor="White"  Grid.Column="0" Grid.Row="7"/>
+
+
+                    <Label  Text="{Binding product.Kcal100}" FontSize="20" TextColor="White" HorizontalTextAlignment="Center"  Grid.Column="1" Grid.Row="1"/>
+                    <Label  Text="{Binding product.Carbohydrate}" FontSize="20" TextColor="White" HorizontalTextAlignment="Center" Grid.Column="1" Grid.Row="2"/>
+                    <Label  Text="{Binding product.Sugar}" FontSize="20" TextColor="White" HorizontalTextAlignment="Center" Grid.Column="1" Grid.Row="3"/>
+                    <Label  Text="{Binding product.Fat}" FontSize="20" TextColor="White" HorizontalTextAlignment="Center" Grid.Column="1" Grid.Row="4"/>
+                    <Label  Text="{Binding product.SaturatesFat}" FontSize="20" TextColor="White" HorizontalTextAlignment="Center" Grid.Column="1" Grid.Row="5"/>
+                    <Label  Text="{Binding product.Protein}" FontSize="20" TextColor="White" HorizontalTextAlignment="Center" Grid.Column="1" Grid.Row="6"/>
+                    <Label  Text="{Binding product.Salt}" FontSize="20" TextColor="White" HorizontalTextAlignment="Center" Grid.Column="1" Grid.Row="7"/>
+                </Grid>
+            </Frame>
+
+            <StackLayout HeightRequest="900" Margin="5" BackgroundColor="Black">
+
+                <Label Text="Zdrowe składniki" TextColor="Green"/>
+                <Grid>
+                    <StackLayout
+                        Orientation="Horizontal" HeightRequest="300"  
+                        BindableLayout.ItemsSource="{Binding HealthIngList}" BackgroundColor="LawnGreen" Margin="5">
+                        <BindableLayout.ItemTemplate >
+                            <DataTemplate >                            
+                                <templates:IngredientsTemplate />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </Grid>
+                <Label Text="Neutralne składniki" TextColor="WhiteSmoke"/>
+                <Grid>
+                    <StackLayout
+                        Orientation="Horizontal" HeightRequest="300"  
+                        BindableLayout.ItemsSource="{Binding NeutralIngList}" BackgroundColor="Snow" Margin="5" >
+                        <BindableLayout.ItemTemplate >
+                            <DataTemplate >
+                                <templates:IngredientsTemplate />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </Grid>
+                <Label Text="Niezdrowe składniki" TextColor="Red" />
+                <Grid>
+                    <StackLayout
+                        Orientation="Horizontal" HeightRequest="300"  
+                        BindableLayout.ItemsSource="{Binding UnHealthIngList}" BackgroundColor="PaleVioletRed" Margin="5" >
+                        <BindableLayout.ItemTemplate >
+                            <DataTemplate >
+                                <templates:IngredientsTemplate />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </Grid>
+                </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

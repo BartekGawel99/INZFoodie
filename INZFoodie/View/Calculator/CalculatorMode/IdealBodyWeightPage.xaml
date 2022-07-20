@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="INZFoodie.View.Calculator.CalculatorMode.IdealBodyWeightPage" 
+             xmlns:fontAwesome="clr-namespace:FontAwesome"
+             BackgroundColor="SlateGray"
+             Title="Należna Masa Ciała"             
+             Shell.ForegroundColor="White"
+             Shell.BackgroundColor="#5c007a">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="buttonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="Beige" />
+                <Setter Property="BackgroundColor" Value="MediumOrchid"/>
+                <Setter Property="CornerRadius" Value="230"/>
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="BorderColor"  Value="Black" />
+                <Setter Property="BorderWidth"  Value="1" />
+                <Setter Property="FontSize" Value="Title" />
+            </Style>
+
+            <Style x:Key="inputStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="Beige" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="FontSize" Value="Title" />
+                <Setter Property="PlaceholderColor" Value="Beige"/>
+                <Setter Property="Keyboard" Value="Numeric" />
+            </Style>
+
+            <Style x:Key="pickerStyle" TargetType="Picker">
+                <Setter Property="TitleColor" Value="Beige" />
+                <Setter Property="TextColor" Value="Beige"/>
+                <Setter Property="FontSize" Value="Title" />
+
+            </Style>
+
+            <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="Red" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  Text="{x:Static fontAwesome:FontAwesomeIcons.Question}"  Command="{Binding ShowInfoCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+
+        <StackLayout>
+            <Frame BackgroundColor="SlateGray" BorderColor="DarkBlue"  Margin="10">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Text="Wzrost" FontSize="Subtitle" Grid.Row="0"/>
+
+                    <Entry x:Name="Height" Text="{Binding Height}" Placeholder="Wzrost" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Style="{StaticResource inputStyle}" >
+
+                    </Entry>
+
+
+                    <Label Text="Płeć" FontSize="Subtitle" Grid.Row="2" Grid.Column="0"/>
+                    <Picker x:Name="pikerSex" Title="Płeć" SelectedItem="{Binding SexValue}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource pickerStyle}">
+                        <Picker.Items>
+                            <x:String>Mężczyzna</x:String>
+                            <x:String>Kobieta</x:String>
+                        </Picker.Items>
+                    </Picker>
+
+                    <Label Text="Wzór" FontSize="Subtitle" Grid.Row="4" Grid.Column="0"/>
+                    <Picker x:Name="pikerPattern" Title="Wzór" SelectedItem="{Binding PatternValue}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource pickerStyle}">
+                        <Picker.Items>
+                            <x:String>Broca</x:String>
+                            <x:String>Lorentza</x:String>
+                            <x:String>Pattona</x:String>
+                        </Picker.Items>
+                    </Picker>
+
+
+
+                    <Button Text="Oblicz" Grid.Column="0" Grid.Row="10"  Grid.ColumnSpan="2"  
+                            Style="{StaticResource buttonStyle}" Command="{Binding IdealBodyMassResult}"/>
+
+
+                </Grid>
+            </Frame>
+            <Label Text="Wynik" FontSize="Title" Grid.Row="0" HorizontalOptions="CenterAndExpand" />
+            <Label  Text="{Binding Result}"  TextColor="Beige" FontSize="50" HorizontalOptions="CenterAndExpand"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

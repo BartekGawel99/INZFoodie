@@ -2,39 +2,60 @@
 using INZFoodie.View;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Command = MvvmHelpers.Commands.Command;
 
 namespace INZFoodie.ViewModel
 {
-    public class ScanningResultViewModel 
+    [QueryProperty(nameof(product), nameof(product))]
+    public class ScanningResultViewModel : ContentView
     {
-        public ObservableRangeCollection<Ingredient> ingredientsList { get ; set; }
+        public ObservableRangeCollection<Ingredient> HealthIngList { get ; set; }
+        public ObservableRangeCollection<Ingredient> NeutralIngList { get; set; }
+        public ObservableRangeCollection<Ingredient> UnHealthIngList { get; set; }
+        public AsyncCommand<Ingredient> SelectedCommand { get; set; }
         public Product product { get; set; }
-        public ScanningResultViewModel(Model.Product barcode, List<Model.Ingredient> ingredients)
+        public ScanningResultViewModel(Model.Product productObj)
         {
-            ingredientsList = new ObservableRangeCollection<Ingredient>();
-            product = barcode;
-            ingredientsList.AddRange(barcode.Ingredients);
-    
+            HealthIngList = new ObservableRangeCollection<Ingredient>();
+            NeutralIngList = new ObservableRangeCollection<Ingredient>();
+            UnHealthIngList = new ObservableRangeCollection<Ingredient>();
+            product = new Product();
+            product = productObj;
+            for( int i = 0; i < 5; i++)
+            {
+                foreach (var item in productObj.Ingredients)
+                {
+                    if (item.HealthInfo == 0)
+                    {
+                        HealthIngList.Add(item);
+                    }
+                    else if (item.HealthInfo == 1)
+                    {
+                        NeutralIngList.Add(item);
+                    }
+                    else
+                    {
+                        UnHealthIngList.Add(item);
+                    }
 
+                }
+            }
+
+            SelectedCommand = new AsyncCommand<Ingredient>(Selected);
         }
 
-        Ingredient selectedIngredient;
-        public Ingredient SelectedIngredient
+        async Task Selected(Ingredient ingredient)
         {
-            get => selectedIngredient;
-            set
-            {
-                if(value != null)
-                {
-                    Application.Current.MainPage.DisplayAlert(value.Name, value.Info, "Ok");
-                }
-                selectedIngredient = value;
+            
+            if (ingredient == null)
+                return;
 
-            }
+            await Application.Current.MainPage.DisplayAlert(ingredient.Name, ingredient.Info, "OK");
         }
     }
 }

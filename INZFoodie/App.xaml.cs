@@ -10,8 +10,17 @@ namespace INZFoodie
         public App()
         {
             InitializeComponent();
+            var isLoogged = Xamarin.Essentials.SecureStorage.GetAsync("isLogged").Result;
+            var userId = Xamarin.Essentials.SecureStorage.GetAsync("Id").Result;
             //MainPage = new MainPage();
-            MainPage = new NavigationPage( new LoginView());
+            if (isLoogged == "1")            
+            {                
+                MainPage = new AppShell();
+            }
+            else
+            {
+                MainPage = new LoginView();
+            }
         }
 
         protected override void OnStart()

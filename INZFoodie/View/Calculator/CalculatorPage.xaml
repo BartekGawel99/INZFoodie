@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="INZFoodie.View.Calculator.CalculatorPage"
+             xmlns:fontAwesome="clr-namespace:FontAwesome"
+             Shell.ForegroundColor="White"
+             Shell.BackgroundColor="#5c007a">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="buttonStyle" TargetType="Button">
+
+                <Setter Property="TextColor" Value="Beige" />
+                <Setter Property="BackgroundColor" Value="#ae52d4"/>
+                <Setter Property="CornerRadius" Value="230"/>
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="BorderColor"  Value="Black" />
+                <Setter Property="BorderWidth"  Value="1" />
+                <Setter Property="FontSize" Value="Title" />                
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  Text="{x:Static fontAwesome:FontAwesomeIcons.Question}"  Command="{Binding ShowInfoCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>  
+
+        <StackLayout>
+            <Frame BackgroundColor="#7b1fa2" BorderColor="DarkBlue"  >
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70" />
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                    </Grid.RowDefinitions>
+
+                    <Button Text="BMI"  Grid.Row="0" Command="{Binding BmiCommand}" Style="{StaticResource buttonStyle}"/>
+                    <Button Text="Należna Masa Ciała" Command="{Binding IdealBodyWeightCommand}" Grid.Row="1" Style="{StaticResource buttonStyle}"/>
+
+                    <Button Text="PPM Harris-Benedict" Command="{Binding HarrisCommand}" Grid.Row="2" Style="{StaticResource buttonStyle}"/>
+                    <Button Text="PPM Miffina" Command="{Binding MiffinCommand}" Grid.Row="3" Style="{StaticResource buttonStyle}"/>
+
+                    <Button Text="CPM" Command="{Binding CpmCommand}" Grid.Row="4" Style="{StaticResource buttonStyle}"/>
+                    <Button Text="Beztłuszczowa Masa Ciała" Command="{Binding LeanBodyMassCommand}" Grid.Row="5" Style="{StaticResource buttonStyle}"/>
+
+                    <Button Text="Talia do Wzrostu" Command="{Binding WTHeightCommand}" Grid.Row="6" Style="{StaticResource buttonStyle}"/>
+                    <Button Text="Talia do Biodra" Command="{Binding WTHipCommand}" Grid.Row="7" Style="{StaticResource buttonStyle}"/>
+
+                    <Button Text="Ładunek Glikemiczny" Command="{Binding GlycemicCommand}" Grid.Row="8" Style="{StaticResource buttonStyle}"/>
+
+
+                </Grid>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

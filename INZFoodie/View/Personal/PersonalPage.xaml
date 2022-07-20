@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="INZFoodie.View.Personal.PersonalPage"
+             xmlns:fontAwesome="clr-namespace:FontAwesome" 
+             xmlns:model="clr-namespace:INZFoodie.Model" 
+             xmlns:viewmodels="clr-namespace:INZFoodie.ViewModel"
+             x:Name="PersonalPage2"
+             BackgroundColor="SlateGray"
+             Title="Obliczenia personalne"             
+             Shell.ForegroundColor="White"
+             Shell.BackgroundColor="#5c007a">
+    <ContentPage.BindingContext>
+        <viewmodels:PersonalPageViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Beige" />
+                <Setter Property="FontSize" Value="Title" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  Text="{x:Static fontAwesome:FontAwesomeIcons.Plus}"   Command="{Binding AddCommand}"/>
+    </ContentPage.ToolbarItems>
+
+
+    <ListView ItemsSource="{Binding PersonalsListGroups}"
+              IsGroupingEnabled="True"  
+              HasUnevenRows="True" 
+              GroupDisplayBinding="{Binding Key}" 
+              SeparatorVisibility="None">
+        <ListView.ItemTemplate>
+            
+            <DataTemplate x:DataType="model:Personal">
+                <ViewCell>
+                        <Grid Padding="20" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+
+                        <Label  Text="Waga"  Style="{StaticResource LabelStyle}"  Grid.Column="0" Grid.Row="0"/>
+                        <Label  Text="Wzrost"  Style="{StaticResource LabelStyle}"  Grid.Column="0" Grid.Row="1"/>
+                        <Label  Text="CPM"  Style="{StaticResource LabelStyle}"  Grid.Column="0" Grid.Row="2"/>
+                        <Label  Text="Białko" Style="{StaticResource LabelStyle}"  Grid.Column="2" Grid.Row="0"/>
+                        <Label  Text="Węglowodany"  Style="{StaticResource LabelStyle}"  Grid.Column="2" Grid.Row="1"/>
+                        <Label  Text="Tłuszcz"  Style="{StaticResource LabelStyle}"  Grid.Column="2" Grid.Row="2"/>
+
+                        <Label  Text="{Binding Mass}"  Style="{StaticResource LabelStyle}"  Grid.Column="1" Grid.Row="0"/>
+                        <Label  Text="{Binding Height}"  Style="{StaticResource LabelStyle}"  Grid.Column="1" Grid.Row="1"/>
+                        <Label  Text="{Binding CPMTarget}"  Style="{StaticResource LabelStyle}"  Grid.Column="1" Grid.Row="2"/>
+                        <Label  Text="{Binding Protein}"  Style="{StaticResource LabelStyle}"  Grid.Column="3" Grid.Row="0"/>
+                        <Label  Text="{Binding Carbonates}"  Style="{StaticResource LabelStyle}"  Grid.Column="3" Grid.Row="1"/>
+                        <Label  Text="{Binding Fat}"  Style="{StaticResource LabelStyle}"  Grid.Column="3" Grid.Row="2"/>
+
+                    </Grid>
+
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

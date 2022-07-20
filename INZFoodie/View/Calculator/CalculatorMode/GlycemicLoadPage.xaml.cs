@@ -1,4 +1,4 @@
-﻿using INZFoodie.ViewModel;
+﻿using INZFoodie.ViewModel.Calculator.CalculatorMode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace INZFoodie.View
+namespace INZFoodie.View.Calculator.CalculatorMode
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BarcodeScannerViewNew : ContentPage
+    public partial class GlycemicLoadPage : ContentPage
     {
-        public BarcodeScannerViewNew(string barcode)
+        public GlycemicLoadPage()
         {
             InitializeComponent();
-
+            BindingContext = new GlycemicLoadPageViewModel();
         }
-
     }
 }

@@ -5,7 +5,6 @@
              xmlns:ZXing="clr-namespace:ZXing.Client.Result;assembly=zxing.portable"
              xmlns:Zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms" >
 
-
     <ContentPage.Content>
 
         <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
