@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -19,7 +20,10 @@ namespace INZFoodie.ViewModel
         public ObservableRangeCollection<Personal> PersonalsList { get; set; }
         public ObservableRangeCollection<Grouping<string, Personal>> PersonalsListGroups { get; set; }
         public AsyncCommand RefreshCommand { get; }
-        public AsyncCommand AddCommand { get; set; }
+        public AsyncCommand AddCommand { get;  }
+        public AsyncCommand<Personal> EditCommand { get;  }
+        public AsyncCommand<int> DeleteCommand { get;  }
+        public AsyncCommand DelayLoadMoreCommand { get; }
 
         public PersonalPageViewModel()
         {
@@ -30,8 +34,12 @@ namespace INZFoodie.ViewModel
 
             AddCommand = new AsyncCommand(add);
             RefreshCommand = new AsyncCommand(Refresh);
+            EditCommand = new AsyncCommand<Personal>(Edit);
+            DeleteCommand = new AsyncCommand<int>(Delete);
         }
 
+
+       
         async Task add()
         {
             var route = $"{nameof(AddPersonalPage)}";
@@ -43,6 +51,7 @@ namespace INZFoodie.ViewModel
 
             await Task.Delay(2000);
 
+            PersonalsListGroups.Clear();
             PersonalsList.Clear();
             LoadMore();
 
@@ -50,28 +59,58 @@ namespace INZFoodie.ViewModel
         }
         async void LoadMore()
         {
-            var userId = Xamarin.Essentials.SecureStorage.GetAsync("Id").Result;
-            userId = userId.Replace("\"", "");
-            if (PersonalsList.Count >= 20)
-                return;
+            try
+            {
+                var userId = Xamarin.Essentials.SecureStorage.GetAsync("Id").Result;
+                userId = userId.Replace("\"", "");
+                if (PersonalsListGroups.Count >= 20)
+                    return;
 
-            HttpClient httpClient = new HttpClient();
+                HttpClient httpClient = new HttpClient();
 
-            var resultJson = await httpClient.GetAsync($"http://192.168.0.221:5016/api/Personel/Personal/{userId}");  
-            var content = await resultJson.Content.ReadAsStringAsync();
+                var resultJson = await httpClient.GetAsync($"http://192.168.0.221:5016/api/Personel/Personal/{userId}");
+                var content = await resultJson.Content.ReadAsStringAsync();
 
-                
+
                 List<Personal> sda = JsonConvert.DeserializeObject<List<Personal>>(content);
-                foreach(Personal person in sda)
+                sda.Reverse();
+                foreach (Personal person in sda)
                 {
-                PersonalsList.Add(person);
-                PersonalsListGroups.Add(new Grouping<string, Personal>(person.SaveTime.ToString(), PersonalsList.Where(c => c.SaveTime == person.SaveTime)));
+                    PersonalsList.Add(person);
+                    PersonalsListGroups.Add(new Grouping<string, Personal>(person.SaveTime.ToString(), PersonalsList.Where(c => c.SaveTime == person.SaveTime)));
                 }
 
+            }
+            catch (Exception ex)
+            {
+               await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
+        }
+        async Task Edit(Personal personal)
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new EditPersonalPage(personal));
+        }
+        async Task Delete(int personalID)
+        {
 
-
-
-
+            var action = await Application.Current.MainPage.DisplayAlert("Usuwanie", "Jesteś pewny że chcesz usunąć pomiar?", "Tak", "Nie");
+            if (action)
+            {
+                var httpClient = new HttpClient();
+                try
+                {
+                    await httpClient.DeleteAsync($"http://192.168.0.221:5016/api/Personel/{personalID}");
+                    await Refresh();                    
+                }
+                catch (Exception ex)
+                {
+                    await Refresh();
+                    await Application.Current.MainPage.DisplayAlert("Error", "nie udało sie", "OK");
+                    
+                }
+        
+            }
+            
         }
 
     }

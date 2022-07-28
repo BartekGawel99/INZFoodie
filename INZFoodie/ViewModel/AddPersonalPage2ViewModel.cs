@@ -23,7 +23,7 @@ namespace INZFoodie.ViewModel
         public AsyncCommand ResultCommand { get; }
         public AsyncCommand OKCommand { get; }
         public Personal personal2 { get; set; }
-
+        protected bool IsClicked = false;
         public AddPersonalPage2ViewModel(Personal personal)
         {
             ResultCommand = new AsyncCommand(ResultTask);
@@ -35,22 +35,25 @@ namespace INZFoodie.ViewModel
             OnPropertyChanged(nameof(CarbontesResult));
 
             personal2 = personal;
+            protein = 15;
+            carbonates = 50;
+            fat = 35;
         }
 
-        double protein = 15;
+        double protein;
         public double Protein
         {
             get { return protein; }
             set { protein = value; }
         }
-        double carbonates = 50;
+        double carbonates;
         public double Carbonates
         {
             get { return carbonates; }
             set { carbonates = value; }
         }
 
-        double fat = 35;
+        double fat;
         public double Fat
         {
             get { return fat; }
@@ -101,6 +104,7 @@ namespace INZFoodie.ViewModel
                 await Application.Current.MainPage.DisplayAlert("Error", "Łączna wartość na wszytskich polach powinna wynieść 100", "OK");
                 return;
             }
+            IsClicked = true;
             personal2 = vm.PersonalCal(personal2);
 
             cpmTarget = personal2.CPMTarget;
@@ -115,6 +119,10 @@ namespace INZFoodie.ViewModel
         }
         async Task Save()
         {
+            if(!IsClicked)
+            {
+               await ResultTask();
+            }
             personal2.SaveTime = DateTime.Now;
             var httpClient = new HttpClient();             
             var json = JsonConvert.SerializeObject(personal2);
@@ -125,7 +133,7 @@ namespace INZFoodie.ViewModel
                 var resultJson = await httpClient.PostAsync($"http://192.168.0.221:5016/api/Personel/PersonalSave", content);
                 string result = resultJson.Content.ReadAsStringAsync().Result;
 
-                await Application.Current.MainPage.Navigation.PushAsync(new PersonalPage());
+                await Application.Current.MainPage.Navigation.PopToRootAsync();
             }
             catch (Exception ex)
             {

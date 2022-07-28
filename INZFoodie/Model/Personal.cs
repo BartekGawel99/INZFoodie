@@ -7,8 +7,8 @@ namespace INZFoodie.Model
 {
     public class Personal
     {
-        [JsonProperty("IdPersonal")]
-        public int IdPersonal { get; set; }
+        [JsonProperty("Id")]
+        public int Id { get; set; }
         [JsonProperty("IdUser")]
         public Guid IdUser { get; set; }
         [JsonProperty("Mass")]

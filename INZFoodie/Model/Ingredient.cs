@@ -14,7 +14,9 @@ namespace INZFoodie.Model
         [JsonProperty("info")]
         public string Info { get; set; }
         [JsonProperty("healthInfo")]
-        public int HealthInfo { get; set; }       
-  
+        public int HealthInfo { get; set; }
+        [JsonIgnore]
+        public string Color { get; set; }
+
     }
 }

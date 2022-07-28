@@ -133,12 +133,14 @@ namespace INZFoodie.ViewModel.Calculator.CalculatorMode
             {
                 var miffinPPM = double.Parse(Miffin(height, mass, age, sex));
                 result = miffinPPM * Pal;
+                result = Math.Round(result, 0);
                 return result.ToString();
             }
             else
             {
                 var harrisPPM = double.Parse(Harris(height, mass, age, sex));
                 result = harrisPPM * Pal;
+                result = Math.Round(result, 0);
                 return result.ToString();
             }            
         }
@@ -150,10 +152,12 @@ namespace INZFoodie.ViewModel.Calculator.CalculatorMode
             if(target == "Chce schudnąć")
             {
                 cpmm = cpmm * 0.9;
+                cpmm = Math.Round(cpmm, 0);
             }
             else if(target == "Chce powiększyć masę mieśniową")
             {
                 cpmm = cpmm * 1.1;
+                cpmm = Math.Round(cpmm, 0);
             }
             cpmT = cpmm.ToString();
             return cpmT;

@@ -28,48 +28,81 @@
         <ToolbarItem  Text="{x:Static fontAwesome:FontAwesomeIcons.Plus}"   Command="{Binding AddCommand}"/>
     </ContentPage.ToolbarItems>
 
-
-    <ListView ItemsSource="{Binding PersonalsListGroups}"
-              IsGroupingEnabled="True"  
-              HasUnevenRows="True" 
-              GroupDisplayBinding="{Binding Key}" 
-              SeparatorVisibility="None">
-        <ListView.ItemTemplate>
+    <RefreshView Command="{Binding RefreshCommand}"
+             IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+        
+        <CollectionView
+            BackgroundColor="Gray"
+            IsGrouped="True"           
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsLayout="VerticalList"
+            ItemsSource="{Binding PersonalsListGroups}">
             
+            <CollectionView.EmptyView>
+                <StackLayout Padding="12">
+                    <Label HorizontalOptions="Center" Text="Ładowanie lub Brak Pomiarów"/>
+                </StackLayout>
+            </CollectionView.EmptyView>
+            
+            <CollectionView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="12">
+                        <Label Text="{Binding Key}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>            
+            <CollectionView.ItemTemplate >                
             <DataTemplate x:DataType="model:Personal">
-                <ViewCell>
-                        <Grid Padding="20" >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="2*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
+                    <Frame CornerRadius="20" BackgroundColor="Black">
+                    <SwipeView>
+                        <SwipeView.RightItems >
+                            <SwipeItems >
+                                <SwipeItem 
+                                    BackgroundColor="Green"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:PersonalPageViewModel}}, Path=EditCommand}"
+                                    CommandParameter="{Binding .}"
+                                    Text="Edytuj"/>
+                                <SwipeItem 
+                                    BackgroundColor="Red"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:PersonalPageViewModel}}, Path=DeleteCommand}"
+                                    CommandParameter="{Binding Id}"
+                                    Text="Usuń"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Grid Padding="20" BackgroundColor="DarkSlateBlue">                            
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
 
 
-                        <Label  Text="Waga"  Style="{StaticResource LabelStyle}"  Grid.Column="0" Grid.Row="0"/>
-                        <Label  Text="Wzrost"  Style="{StaticResource LabelStyle}"  Grid.Column="0" Grid.Row="1"/>
-                        <Label  Text="CPM"  Style="{StaticResource LabelStyle}"  Grid.Column="0" Grid.Row="2"/>
-                        <Label  Text="Białko" Style="{StaticResource LabelStyle}"  Grid.Column="2" Grid.Row="0"/>
-                        <Label  Text="Węglowodany"  Style="{StaticResource LabelStyle}"  Grid.Column="2" Grid.Row="1"/>
-                        <Label  Text="Tłuszcz"  Style="{StaticResource LabelStyle}"  Grid.Column="2" Grid.Row="2"/>
+                            <Label  Text="Waga"  Style="{StaticResource LabelStyle}"  Grid.Column="0" Grid.Row="0"/>
+                            <Label  Text="Wzrost"  Style="{StaticResource LabelStyle}"  Grid.Column="0" Grid.Row="1"/>
+                            <Label  Text="CPM"  Style="{StaticResource LabelStyle}"  Grid.Column="0" Grid.Row="2"/>
+                            <Label  Text="Białko" Style="{StaticResource LabelStyle}"  Grid.Column="2" Grid.Row="0"/>
+                            <Label  Text="Węglowodany"  Style="{StaticResource LabelStyle}"  Grid.Column="2" Grid.Row="1"/>
+                            <Label  Text="Tłuszcz"  Style="{StaticResource LabelStyle}"  Grid.Column="2" Grid.Row="2"/>
 
-                        <Label  Text="{Binding Mass}"  Style="{StaticResource LabelStyle}"  Grid.Column="1" Grid.Row="0"/>
-                        <Label  Text="{Binding Height}"  Style="{StaticResource LabelStyle}"  Grid.Column="1" Grid.Row="1"/>
-                        <Label  Text="{Binding CPMTarget}"  Style="{StaticResource LabelStyle}"  Grid.Column="1" Grid.Row="2"/>
-                        <Label  Text="{Binding Protein}"  Style="{StaticResource LabelStyle}"  Grid.Column="3" Grid.Row="0"/>
-                        <Label  Text="{Binding Carbonates}"  Style="{StaticResource LabelStyle}"  Grid.Column="3" Grid.Row="1"/>
-                        <Label  Text="{Binding Fat}"  Style="{StaticResource LabelStyle}"  Grid.Column="3" Grid.Row="2"/>
-
-                    </Grid>
-
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+                            <Label  Text="{Binding Mass}"  Style="{StaticResource LabelStyle}"  Grid.Column="1" Grid.Row="0" />
+                            <Label  Text="{Binding Height}"  Style="{StaticResource LabelStyle}"  Grid.Column="1" Grid.Row="1"/>
+                            <Label  Text="{Binding CPMTarget}"  Style="{StaticResource LabelStyle}"  Grid.Column="1" Grid.Row="2"/>
+                            <Label  Text="{Binding Protein}"  Style="{StaticResource LabelStyle}"  Grid.Column="3" Grid.Row="0"/>
+                            <Label  Text="{Binding Carbonates}"  Style="{StaticResource LabelStyle}"  Grid.Column="3" Grid.Row="1"/>
+                            <Label  Text="{Binding Fat}"  Style="{StaticResource LabelStyle}"  Grid.Column="3" Grid.Row="2"/>
+                        </Grid>
+                    </SwipeView>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+    
 </ContentPage>
