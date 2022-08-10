@@ -2,6 +2,7 @@
 using INZFoodie.View.Calculator;
 using INZFoodie.View.Calculator.CalculatorMode;
 using INZFoodie.View.Personal;
+using INZFoodie.View.Scanning;
 using MvvmHelpers.Commands;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,8 @@ namespace INZFoodie
             Routing.RegisterRoute(nameof(WaistToHeightRatioPage), typeof(WaistToHeightRatioPage));
             Routing.RegisterRoute(nameof(WaistToHipRatioPage), typeof(WaistToHipRatioPage));
             Routing.RegisterRoute(nameof(AddPersonalPage), typeof(AddPersonalPage));
+            Routing.RegisterRoute(nameof(AddIngrediets), typeof(AddIngrediets));
+            Routing.RegisterRoute(nameof(AddIngredient), typeof(AddIngredient));
 
 
         }

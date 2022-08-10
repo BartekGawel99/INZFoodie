@@ -28,21 +28,35 @@ namespace INZFoodie.View
             var httpClient = new HttpClient();
             try
             {
-                var resultJson = await httpClient.GetStringAsync($"http://192.168.0.221:5016/api/Product/{result.Text}");
-                Product resultProduct = JsonConvert.DeserializeObject<Product>(resultJson);
-                Device.BeginInvokeOnMainThread(async () =>
+                var checkresult = await httpClient.GetAsync($"http://192.168.0.221:5016/api/Product/{result.Text}");
+                if (checkresult.IsSuccessStatusCode != false )
+                {                   
+                    var resultJson = await httpClient.GetStringAsync($"http://192.168.0.221:5016/api/Product/{result.Text}");
+                    Product resultProduct = JsonConvert.DeserializeObject<Product>(resultJson);                    
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await Navigation.PushAsync(new BarcodeScannerResult(resultProduct));
+                    });
+                }
+                else
                 {
-                    await Navigation.PushAsync(new BarcodeScannerResult(resultProduct));
-                });
-            }     
-            catch (Exception ex)
-            { 
-                return;
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                    var action = await Application.Current.MainPage.DisplayAlert("Brak skanowanego produktu", "Chcesz dodać informacje do tego produtku?", "Tak", "Nie");
+                        if (action)
+                        {
+                            await Navigation.PushAsync(new BarcodeScannerAdd(result.Text));
+                        }
+                    });
+                    
+                }
+                
             }
+            catch (Exception ex)
+            {
 
-            
-
-            
+                
+            }
 
         }
 

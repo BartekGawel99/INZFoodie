@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="INZFoodie.View.Scanning.AddIngredient"
+             BackgroundColor="Gray">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="300"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="55"/>
+                </Grid.RowDefinitions>
+
+                <Label Text="Nazwa Składnika" Grid.Row="0" />
+                <Entry Grid.Row="1" Text="{Binding NameIng}"/>
+                <Label Text="Opis Składnika" Grid.Row="2" />
+                <Frame Grid.Row="3" Padding="5" Margin="10">
+                    <Editor Text="{Binding InfoIng}"/>
+                </Frame>
+                <Label Text="Nazwa Składnika" Grid.Row="4" />
+                <Picker x:Name="pickerPPM" SelectedItem="{Binding HealthInfo}" Title="Informacja zdrowotna" Grid.Row="5" Grid.Column="0" >
+                    <Picker.Items>
+                        <x:String>Nieporządane</x:String>
+                        <x:String>Neutralne</x:String>
+                        <x:String>Porządane</x:String>
+                    </Picker.Items>
+                </Picker>
+
+                <Button Grid.Row="6" Command="{Binding SaveIngCommand}"/>
+
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

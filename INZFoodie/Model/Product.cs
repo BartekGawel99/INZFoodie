@@ -31,7 +31,7 @@ namespace INZFoodie.Model
         public string Protein { get; set; } = string.Empty;
         [JsonProperty("Salt")]
         public string Salt { get; set; } = string.Empty;
-        [JsonProperty("ingredients")]
+        [JsonProperty("Ingredients")]
         public List<Ingredient> Ingredients { get; set; } 
     }
 }

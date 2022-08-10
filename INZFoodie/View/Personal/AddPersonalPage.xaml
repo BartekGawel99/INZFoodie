@@ -22,7 +22,6 @@
 
             <Style x:Key="inputStyle" TargetType="Entry">
                 <Setter Property="TextColor" Value="Beige" />
-
                 <Setter Property="FontSize" Value="Title" />
                 <Setter Property="PlaceholderColor" Value="Beige"/>
                 <Setter Property="Keyboard" Value="Numeric" />

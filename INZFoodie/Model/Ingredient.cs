@@ -7,16 +7,19 @@ namespace INZFoodie.Model
 {
     public class Ingredient
     {
-        [JsonProperty("idIgredient")]
-        public string IdIgredient { get; set; }
-        [JsonProperty("name")]
+        [JsonProperty("IdIgredient")]
+        public int IdIgredient { get; set; }
+        [JsonProperty("Name")]
         public string Name { get; set; }
-        [JsonProperty("info")]
+        [JsonProperty("Info")]
         public string Info { get; set; }
-        [JsonProperty("healthInfo")]
+        [JsonProperty("HealthInfo")]
         public int HealthInfo { get; set; }
         [JsonIgnore]
         public string Color { get; set; }
+        [JsonIgnore]
+        public List<Product> Product { get; set; }
+
 
     }
 }
