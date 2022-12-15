@@ -52,7 +52,7 @@ namespace INZFoodie.ViewModel
                 var json = JsonConvert.SerializeObject(user);
                 HttpContent content = new StringContent(json);
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                var resultJson = await httpClient.PostAsync("http://192.168.0.221:5016/api/Login/Login", content);
+                var resultJson = await httpClient.PostAsync("https://xn--infoodie-43b.azurewebsites.net/api/Login/Login", content);
                 string result = resultJson.Content.ReadAsStringAsync().Result;
                 if (!resultJson.IsSuccessStatusCode)
                 {
@@ -80,7 +80,7 @@ namespace INZFoodie.ViewModel
                 var json = JsonConvert.SerializeObject(user);
                 HttpContent content = new StringContent(json);
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");              
-                var resultJson = await httpClient.PostAsync("http://192.168.0.221:5016/api/Login/Register", content);
+                var resultJson = await httpClient.PostAsync("https://xn--infoodie-43b.azurewebsites.net/api/Login/Register", content);
                 await Application.Current.MainPage.DisplayAlert("Zarejestrowane", "Zaloguj się", "OK");
               
             }

@@ -130,7 +130,7 @@ namespace INZFoodie.ViewModel
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             try
             {
-                var resultJson = await httpClient.PostAsync($"http://192.168.0.221:5016/api/Personel/PersonalSave", content);
+                var resultJson = await httpClient.PostAsync($"https://xn--infoodie-43b.azurewebsites.net/api/Personel", content);
                 string result = resultJson.Content.ReadAsStringAsync().Result;
 
                 await Application.Current.MainPage.Navigation.PopToRootAsync();

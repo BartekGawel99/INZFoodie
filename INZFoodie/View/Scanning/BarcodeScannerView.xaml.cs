@@ -28,10 +28,10 @@ namespace INZFoodie.View
             var httpClient = new HttpClient();
             try
             {
-                var checkresult = await httpClient.GetAsync($"http://192.168.0.221:5016/api/Product/{result.Text}");
+                var checkresult = await httpClient.GetAsync($"https://xn--infoodie-43b.azurewebsites.net/api/Product/{result.Text}");
                 if (checkresult.IsSuccessStatusCode != false )
                 {                   
-                    var resultJson = await httpClient.GetStringAsync($"http://192.168.0.221:5016/api/Product/{result.Text}");
+                    var resultJson = await httpClient.GetStringAsync($"https://xn--infoodie-43b.azurewebsites.net/api/Product/{result.Text}");
                     Product resultProduct = JsonConvert.DeserializeObject<Product>(resultJson);                    
                     Device.BeginInvokeOnMainThread(async () =>
                     {

@@ -92,7 +92,7 @@ namespace INZFoodie.ViewModel.Scanning
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             try
             {
-                var resultJson = await httpClient.PostAsync("http://192.168.0.221:5016/AddProduct", content);
+                var resultJson = await httpClient.PostAsync("https://xn--infoodie-43b.azurewebsites.net/AddProduct", content);
                 string result = resultJson.Content.ReadAsStringAsync().Result;
             }
             catch (Exception ex)
@@ -124,7 +124,7 @@ namespace INZFoodie.ViewModel.Scanning
             {
                 HttpClient httpClient = new HttpClient();
 
-                var resultJson = await httpClient.GetAsync($"http://192.168.0.221:5016/ListIngrediets");
+                var resultJson = await httpClient.GetAsync($"https://xn--infoodie-43b.azurewebsites.net/ListIngrediets");
                 var content = await resultJson.Content.ReadAsStringAsync();
 
                 List<Ingredient> sda = JsonConvert.DeserializeObject<List<Ingredient>>(content);

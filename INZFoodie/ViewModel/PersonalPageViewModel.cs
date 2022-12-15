@@ -68,7 +68,7 @@ namespace INZFoodie.ViewModel
 
                 HttpClient httpClient = new HttpClient();
 
-                var resultJson = await httpClient.GetAsync($"http://192.168.0.221:5016/api/Personel/Personal/{userId}");
+                var resultJson = await httpClient.GetAsync($"https://xn--infoodie-43b.azurewebsites.net/api/Personel/{userId}");
                 var content = await resultJson.Content.ReadAsStringAsync();
 
 
@@ -99,7 +99,7 @@ namespace INZFoodie.ViewModel
                 var httpClient = new HttpClient();
                 try
                 {
-                    await httpClient.DeleteAsync($"http://192.168.0.221:5016/api/Personel/{personalID}");
+                    await httpClient.DeleteAsync($"https://xn--infoodie-43b.azurewebsites.net/api/Personel/{personalID}");
                     await Refresh();                    
                 }
                 catch (Exception ex)
