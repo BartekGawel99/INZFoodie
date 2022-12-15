@@ -61,7 +61,7 @@
                 <DataTemplate x:DataType="model:Ingredient">
                     <Frame  BackgroundColor="Transparent" Padding="10"  >
                         <SwipeView>
-                                <Label Text="{Binding Name}" FontSize="Title" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="30"  Margin="10" Padding="2" />
+                                <Label Text="{Binding Name}" FontSize="Title" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="30" WidthRequest="350"   Margin="10" Padding="2"/>
                         </SwipeView>
                     </Frame>
                 </DataTemplate>

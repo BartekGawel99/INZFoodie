@@ -17,12 +17,13 @@
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="ReturnType" Value="Next"/>
             </Style>
             <Style x:Key="LabelStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="Beige" />
                 <Setter Property="FontSize" Value="20" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
-                <Setter Property="VerticalTextAlignment" Value="Center" />                
+                <Setter Property="VerticalTextAlignment" Value="Center" />  
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -58,7 +59,7 @@
                             <RowDefinition Height="55"/>
                     </Grid.RowDefinitions>
                     <Label Text="Nazwa Produktu " Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource LabelStyle}"/>
-                    <Entry  Text="{Binding ProductName}"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource EntryStyle}"/>
+                    <Entry  Text="{Binding ProductName}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource EntryStyle}"/>
 
                     <Label Text="Nazwa Producenta" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource LabelStyle}"/>
                     <Entry  Text="{Binding Producer}"    Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource EntryStyle}"/>
