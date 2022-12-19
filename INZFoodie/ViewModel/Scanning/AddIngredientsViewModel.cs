@@ -94,6 +94,7 @@ namespace INZFoodie.ViewModel.Scanning
             {
                 var resultJson = await httpClient.PostAsync("https://xn--infoodie-43b.azurewebsites.net/AddProduct", content);
                 string result = resultJson.Content.ReadAsStringAsync().Result;
+                await Application.Current.MainPage.Navigation.PopToRootAsync();
             }
             catch (Exception ex)
             {

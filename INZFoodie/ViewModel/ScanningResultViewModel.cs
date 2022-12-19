@@ -22,27 +22,23 @@ namespace INZFoodie.ViewModel
             IngredientsList = new ObservableRangeCollection<Ingredient>();
             Product = new Product();
             Product = productObj;
-            for( int i = 0; i < 10; i++)
+            foreach (var item in productObj.Ingredients)
             {
-                foreach (var item in productObj.Ingredients)
+                if (item.HealthInfo == 0)
                 {
-                    if (item.HealthInfo == 0)
-                    {
-                        item.Color = "Green";
-                        IngredientsList.Add(item);                        
-                    }
-                    else if (item.HealthInfo == 1)
-                    {
-                        item.Color = "White";
-                        IngredientsList.Add(item);
-                    }
-                    else
-                    {
-                        item.Color = "Red";
-                        IngredientsList.Add(item);
-                    }
-
+                    item.Color = "Green";
+                    IngredientsList.Add(item);                        
                 }
+                else if (item.HealthInfo == 1)
+                {
+                    item.Color = "White";
+                    IngredientsList.Add(item);
+                }
+                else
+                {
+                    item.Color = "Red";
+                    IngredientsList.Add(item);
+                }            
             }
         }
 
